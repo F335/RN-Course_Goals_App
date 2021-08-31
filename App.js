@@ -13,12 +13,17 @@ export default function App() {
       ...latestCourseGoals,
       { uid: Math.random().toString(), value: goalTitle },
     ]);
+    setIsAddMode(false);
   };
 
   const removeGoalHandler = (goalId) => {
     setCourseGoals((latestCourseGoals) => {
       return latestCourseGoals.filter((goal) => goal.uid !== goalId);
     });
+  };
+
+  const cancelGoalAdditionHandler = () => {
+    setIsAddMode(false);
   };
 
   return (
@@ -29,7 +34,11 @@ export default function App() {
           setIsAddMode(true);
         }}
       />
-      <GoalInput visible={isAddMode} onAddGoal={addGoalHandler} />
+      <GoalInput
+        visible={isAddMode}
+        onAddGoal={addGoalHandler}
+        onCancel={cancelGoalAdditionHandler}
+      />
       <FlatList
         keyExtractor={(item, index) => item.uid}
         data={courseGoals}
