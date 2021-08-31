@@ -22,6 +22,12 @@ export default function App() {
     ]);
   };
 
+  const removeGoalHandler = (goalId) => {
+    setCourseGoals((latestCourseGoals) => {
+      return latestCourseGoals.filter((goal) => goal.uid !== goalId);
+    });
+  };
+
   return (
     <View style={styles.screen}>
       <GoalInput onAddGoal={addGoalHandler} />
@@ -30,9 +36,8 @@ export default function App() {
         data={courseGoals}
         renderItem={(itemData) => (
           <GoalItem
-            onDelete={() => {
-              console.log("Does that work?");
-            }}
+            id={itemData.item.uid}
+            onDelete={removeGoalHandler}
             title={itemData.item.value}
           />
         )}
